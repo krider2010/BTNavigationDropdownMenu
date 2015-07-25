@@ -108,6 +108,20 @@ public class BTNavigationDropdownMenu: UIView {
         }
     }
     
+    // True if checkmarks should be shown on the current item
+    public var showCheckmarks: Bool! {
+        didSet {
+            self.configuration.showCheckmarks = showCheckmarks
+        }
+    }
+    
+    // True if the title should be updated upon selection
+    public var updateTitleOnSelection: Bool! {
+        didSet {
+            self.configuration.updateTitleOnSelection = updateTitleOnSelection
+        }
+    }
+    
     public var didSelectItemAtIndexHandler: ((indexPath: Int) -> ())?
 
     // Private properties
@@ -157,7 +171,9 @@ public class BTNavigationDropdownMenu: UIView {
         self.tableView = BTTableView(frame: CGRectMake(mainScreenBounds.origin.x, mainScreenBounds.origin.y, mainScreenBounds.width, mainScreenBounds.height + 300 - 64), items: items, configuration: self.configuration)
         self.tableView.selectRowAtIndexPathHandler = { (indexPath: Int) -> () in
             self.didSelectItemAtIndexHandler!(indexPath: indexPath)
-            self.setMenuTitle("\(items[indexPath])")
+            if updateTitleOnSelection {
+                self.setMenuTitle("\(items[indexPath])")
+            }
             self.hideMenu()
             self.isShown = false
             self.layoutSubviews()
@@ -273,6 +289,8 @@ class BTConfiguration {
     var animationDuration: NSTimeInterval!
     var maskBackgroundColor: UIColor!
     var maskBackgroundOpacity: CGFloat!
+    var showCheckmarks: Bool;
+    var updateTitleOnSelection: Bool;
     
     init() {
         self.defaultValue()
@@ -298,6 +316,9 @@ class BTConfiguration {
         self.arrowPadding = 15
         self.maskBackgroundColor = UIColor.blackColor()
         self.maskBackgroundOpacity = 0.3
+        
+        self.showCheckmarks = true
+        self.updateTitleOnSelection = true
     }
 }
 
@@ -348,7 +369,7 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = BTTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell", configuration: self.configuration)
         cell.textLabel?.text = self.items[indexPath.row] as? String
-        if indexPath.row == selectedIndexPath {
+        if indexPath.row == selectedIndexPath || self.configuration.showCheckmarks == false {
             cell.checkmarkIcon.hidden = false
         } else {
             cell.checkmarkIcon.hidden = true

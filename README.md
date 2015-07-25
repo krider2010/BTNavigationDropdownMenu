@@ -73,6 +73,10 @@ Once you have assigned the items and frame for dropdown menu, you can custom the
 
 `maskBackgroundOpacity`  **- The opacity of the mask layer.** *Default is 0.3*
 
+`showCheckmarks`  **- Whether or not checkmarks are shown on selection.** *Default is true*
+
+`updateTitleOnSelection`  **- Whether or not the title is shown on selection. Use case to turn off is using the handler to open a new VC.** *Default is true*
+
 ## Requirement
 - iOS 8.0+
 - Xcode 6.1
