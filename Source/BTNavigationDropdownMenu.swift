@@ -289,8 +289,8 @@ class BTConfiguration {
     var animationDuration: NSTimeInterval!
     var maskBackgroundColor: UIColor!
     var maskBackgroundOpacity: CGFloat!
-    var showCheckmarks: Bool;
-    var updateTitleOnSelection: Bool;
+    var showCheckmarks: Bool!
+    var updateTitleOnSelection: Bool!
     
     init() {
         self.defaultValue()
