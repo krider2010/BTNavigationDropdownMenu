@@ -109,16 +109,16 @@ public class BTNavigationDropdownMenu: UIView {
     }
     
     // True if checkmarks should be shown on the current item
-    public var showCheckmarks: Bool! {
+    public var showCheckmarks: NSNumber! {
         didSet {
-            self.configuration.showCheckmarks = showCheckmarks
+            self.configuration.showCheckmarks = (showCheckmarks != nil && showCheckmarks == true)
         }
     }
     
     // True if the title should be updated upon selection
-    public var updateTitleOnSelection: Bool! {
+    public var updateTitleOnSelection: NSNumber! {
         didSet {
-            self.configuration.updateTitleOnSelection = updateTitleOnSelection
+            self.configuration.updateTitleOnSelection = (updateTitleOnSelection != nil && updateTitleOnSelection == true)
         }
     }
     
