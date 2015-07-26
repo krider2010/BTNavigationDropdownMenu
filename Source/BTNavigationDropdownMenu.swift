@@ -111,14 +111,22 @@ public class BTNavigationDropdownMenu: UIView {
     // True if checkmarks should be shown on the current item
     public var showCheckmarks: NSNumber! {
         didSet {
-            self.configuration.showCheckmarks = (showCheckmarks != nil && showCheckmarks == true)
+            if showCheckmarks != nil {
+                self.configuration.showCheckmarks = showCheckmarks.boolValue
+            } else {
+                self.configuration.showCheckmarks = true;
+            }
         }
     }
     
     // True if the title should be updated upon selection
     public var updateTitleOnSelection: NSNumber! {
         didSet {
-            self.configuration.updateTitleOnSelection = (updateTitleOnSelection != nil && updateTitleOnSelection == true)
+            if updateTitleOnSelection != nil {
+                self.configuration.updateTitleOnSelection = updateTitleOnSelection.boolValue
+            } else {
+                self.configuration.updateTitleOnSelection = true;
+            }
         }
     }
     
@@ -369,7 +377,7 @@ class BTTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = BTTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell", configuration: self.configuration)
         cell.textLabel?.text = self.items[indexPath.row] as? String
-        if indexPath.row == selectedIndexPath || self.configuration.showCheckmarks == false {
+        if indexPath.row == selectedIndexPath && self.configuration.showCheckmarks == true {
             cell.checkmarkIcon.hidden = false
         } else {
             cell.checkmarkIcon.hidden = true
